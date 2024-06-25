@@ -41,7 +41,8 @@ const handleNumClick = (e) => {
     //if not toggled we want to concat the number to num1
     if (operator === undefined) {
         //first time initialisation
-        if (num1 === 0) {
+        if (num1 === 0 || num1 === '0') {
+            console.log(typeof(e.target.value));
             num1 = e.target.value;
         }
         else {
@@ -51,7 +52,7 @@ const handleNumClick = (e) => {
         calcDisplay.textContent = num1;
     }
     else {
-        if (num2 === undefined) {
+        if (num2 === undefined || num2 === '0') {
             num2 = e.target.value;
         }
         else {
