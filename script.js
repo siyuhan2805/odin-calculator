@@ -122,7 +122,7 @@ const handelDecimalClick = (e) => {
     if (operator === undefined) {
         //first time initialisation
         //implement check to see if there is already decimal point in the number string
-        if (!num1.includes('.')) {
+        if (!num1.toString().includes('.')) {
 
             if (num1 === 0 || num1 === '0') {
                 console.log(typeof(e.target.value));
@@ -136,7 +136,7 @@ const handelDecimalClick = (e) => {
         }
     }
     else {
-        if (!num2.includes('.')) {
+        if (!num2.toString().includes('.')) {
 
             if (num2 === undefined || num2 === '0') {
                 num2 = e.target.value;
