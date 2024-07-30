@@ -18,6 +18,8 @@ const equalBtn = document.querySelector(".equals-btn");
 const clearBtn = document.querySelector(".ac-btn");
 //query for +/- btn
 const posNegBtn = document.querySelector(".negPos-btn");
+//query for decimal btn
+const decimalBtn = document.querySelector(".decimal-btn");
 
 
 //function for handling click of the AC button
@@ -111,27 +113,83 @@ const handleEqualClick = (e) => {
         operator = undefined;
     }
 }
+
+const handelDecimalClick = (e) => {
+    //listen for whether an operator btn is toggled or not
+    //if toggled we want to concat the decimal to num2 
+    //if not toggled we want to concat the decimal to num1
+
+    if (operator === undefined) {
+        //first time initialisation
+        //implement check to see if there is already decimal point in the number string
+        if (!num1.includes('.')) {
+
+            if (num1 === 0 || num1 === '0') {
+                console.log(typeof(e.target.value));
+                num1 = e.target.value;
+            }
+            else {
+                num1 = num1 + e.target.value; 
+            }
+            //update the calculator display after each num btn press
+            calcDisplay.textContent = num1;
+        }
+    }
+    else {
+        if (!num2.includes('.')) {
+
+            if (num2 === undefined || num2 === '0') {
+                num2 = e.target.value;
+            }
+            else {
+                num2 = num2 + e.target.value
+            }
+            calcDisplay.textContent = num2;   
+        }
+    }
+}
     
 
 //sum function
 const sum = (num1, num2) => {
-    return parseInt(num1) + parseInt(num2);
+    //implement check to both num1 and num2 to check for floating nums
+    if (num1.toString().includes('.') || num2.toString().includes('.')) {
+        return parseFloat(num1) + parseFloat(num2);
+    }
+    else {
+
+        return parseInt(num1) + parseInt(num2);
+    }
 }
 
 //subtract function 
 const subtract = (num1, num2) => {
-    return parseInt(num1) - parseInt(num2);
+    console.log(num1, num2);
+    if (num1.toString().includes('.') || num2.toString().includes('.')) {
+        return parseFloat(num1) - parseFloat(num2);
+    }
+    else {
+        return parseInt(num1) - parseInt(num2);
+    }
 }
 
 //multiply function
 const multiply = (num1, num2) => {
-    return parseInt(num1) * parseInt(num2);
+    if (num1.toString().includes('.') || num2.toString().includes('.')) {
+        return parseFloat(num1) * parseFloat(num2);
+    }
+    else {
+        return parseInt(num1) * parseInt(num2);
+    }
 }
 
 //divide function
 const divide = (num1, num2) => {
     if (parseInt(num2) === 0) {
         return `Nice Try`;
+    }
+    else if (num1.toString().includes('.') || num2.toString().includes('.')) {
+        return parseFloat(num1) / parseFloat(num2);
     }
     else {
         return parseInt(num1) / parseInt(num2);
@@ -173,6 +231,9 @@ equalBtn.addEventListener("click", handleEqualClick);
 
 //add event listener for AC button
 clearBtn.addEventListener("click", handleClear);
+
+//add event listener for decimal button
+decimalBtn.addEventListener("click", handelDecimalClick);
 
 
 
